@@ -40,16 +40,10 @@ class LocalRepository @Inject constructor(
   }
 
   private fun createPhotoFile(imagesDir: File): File {
-    val filename = getFileName()
+    val filename = "collectionName_${System.currentTimeMillis()}.ext"
     val file = File(imagesDir, filename)
     file.createNewFile()
-    Log.d("mytag", "From local repository, file: ${file.path}; exists: ${file.exists()}")
     return file
-  }
-
-  private fun getFileName(): String = GregorianCalendar().run {
-    time = Date()
-    "collectionName_${get(Calendar.MILLISECOND)}.ext"
   }
 
   companion object {
