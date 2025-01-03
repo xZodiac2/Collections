@@ -13,7 +13,7 @@ class UriDecoder @Inject constructor(
 
   private val contentResolver = context.contentResolver
 
-  fun decodeUri(uri: Uri): Bitmap {
+  fun decodeUri(uri: Uri): Bitmap? {
     return contentResolver.openInputStream(uri).use { input ->
       BitmapFactory.decodeStream(input)
     }

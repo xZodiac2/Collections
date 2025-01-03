@@ -43,9 +43,7 @@ class MainViewModel @Inject constructor(
     val photoFiles = localRepository.getAllImages()
 
     val bitmaps = photoFiles.mapNotNull { file ->
-      runCatching {
-        BitmapFactory.decodeFile(file.path)
-      }.getOrNull()
+      BitmapFactory.decodeFile(file.path)
     }
 
     _photosState.value = Photos(bitmaps)
@@ -65,7 +63,7 @@ class MainViewModel @Inject constructor(
   }
 
   private fun onAddPhotoSuccess() {
-    val bitmap = runCatching { uriDecoder.decodeUri(currentPhotoUri) }
+    val bitmap = runCatching { uriDecoder.decodeUri(currentPhotoUri)!! }
     bitmap.fold(
       onSuccess = {
         val newPhotos = _photosState.value.photos.toMutableList()
